@@ -32,6 +32,7 @@ const App = () => {
       setMovies(responseJson.Search);
     }
   };
+    getMovieRequest();
     getMovieRequest(searchValue);
   }, [searchValue]);
 
@@ -92,7 +93,7 @@ const App = () => {
     <div className='container-fluid movies'>
 
       <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Movies" />
+        <MovieListHeading heading="Streamer" />
         <SearchBox
          searchValue={searchValue} setSearchValue={setSearchValue}/>
       </div>
