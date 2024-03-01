@@ -6,7 +6,7 @@ import React from "react";
 const RemoveFavorites = () => {
     return (
         <React.Fragment>
-          <span className="mr-2"> Remove from favorites </span>
+          <span className="mr-2"></span>
           <svg
             width="1em"
             height="1em"

@@ -1,12 +1,23 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css';
-import MovieList from './components/MovieList';
-import MovieListHeading from './components/MovieListHeadings';
-import SearchBox from './components/SearchBox';
+import HomeList from './components/Home';
+import MovieHeading from './components/Headings';
+import Navigation from './components/Navigation';
+
+import Shows from './components/Shows'
+
+
 import AddToFavorites from './components/AddToFavorites';
 import RemoveFavorites from './components/RemoveFavorites';
+import Favorites from './components/Favorites';
+
+
+
+
+
 
 const App = () => {
   // A state object(movies) to hold the list of movies, state of search values, and state favorite objects
@@ -14,6 +25,7 @@ const App = () => {
   const [movies, setMovies] = useState([]); 
   const [favorites, setFavorites] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+ 
   
 
   // Function that call the API
@@ -25,19 +37,32 @@ const App = () => {
   // And pass new value to the (getMovieRequest) function
   useEffect(() => {
     const getMovieRequest = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=1190b3a6`;
+    try {
+      const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=1190b3a6`;
     const response = await fetch(url);
+    if(!response.ok) {
+      throw new Error("HTTP error! Status: ${response.status}");
+    }
+
     const responseJson = await response.json();
+
     if (responseJson.Search) {
       setMovies(responseJson.Search);
+    } else {
+      console.error('No movie data found in the respone:', responseJson);
+    }
+  } catch (error) {
+    console.error('Error fetching movie data: ', error);
     }
   };
     getMovieRequest();
     getMovieRequest(searchValue);
+   
   }, [searchValue]);
 
   console.log(searchValue);
 
+  //delete all favorite items once transfered
   // The function saveToLocalStorage, takes a list of items and save them to local storage as a key
   // All movie on the favorite list are added to the local storage
   // When the app loads, the useEffect hook retrieve the favorite movie from the local storage
@@ -90,34 +115,26 @@ const App = () => {
   // Passed Removedfavorite component and removeFavorite function to the movieList component
   
   return (
+    <Router>
+    
     <div className='container-fluid movies'>
 
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Streamer" />
-        <SearchBox
-         searchValue={searchValue} setSearchValue={setSearchValue}/>
+      <div className="mt-4 mb-4">
+        <Navigation searchValue={searchValue} setSearchValue={setSearchValue} />
       </div>
 
+   
       <div className="row">
-        <MovieList
-            movies={movies}
-            handleFavoritesClick={addFavoriteMovies}
-            favoriteComponent={AddToFavorites}
-        />
+        <Routes>
+          <Route path='/' element={<HomeList movies={movies} handleFavoritesClick={addFavoriteMovies} favoriteComponent={AddToFavorites} />} />
+          <Route path='/shows' element={<Shows />} />
+          <Route path='/favorites' element={<Favorites favorites={favorites} handleFavoritesClick={removeFavoriteMovies} favoriteComponent={RemoveFavorites} />} />
+        </Routes>
+        
       </div>
 
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading='Favorites' />
-        </div>
-
-        <div className='row'>
-          <MovieList
-            movies={favorites}
-            handleFavoritesClick={removeFavoriteMovies}
-            favoriteComponent={RemoveFavorites}
-        />
-      </div>
     </div>
+    </Router>
   );
 };
 

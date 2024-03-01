@@ -7,7 +7,7 @@ import React from "react";
 const AddToFavorites = () => {
   return (
     <React.Fragment>
-      <span className="mr-2"> Add to Favorites </span>
+      <span className="mr-2"> </span>
       <svg
         width="1em"
         height="1em"

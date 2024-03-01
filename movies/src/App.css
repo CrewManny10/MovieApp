@@ -1,12 +1,13 @@
 body {
-  background: #141414;
-  color: #ffffff;
+  background: #080110;
+  color: #360b8b;
 
 }
 
-.movies > .row {
+.movies {
   overflow-x: auto;
   flex-wrap: nowrap;
+ 
 }
 
 
