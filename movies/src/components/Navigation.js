@@ -14,12 +14,12 @@ const Navigation = (props) => {
       <Link to="/" className="nav-item nav-link">
         Home 
       </Link>
-      <Link to="/movies" className="nav-item nav-link">
+      {/* <Link to="/movies" className="nav-item nav-link">
         Movies
       </Link>
       <Link to="/shows" className="nav-item nav-link">
         Shows
-      </Link>
+      </Link> */}
       <Link to="/favorites" className="nav-item nav-link">
         Favorites
       </Link>

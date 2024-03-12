@@ -127,7 +127,6 @@ const App = () => {
       <div className="row">
         <Routes>
           <Route path='/' element={<HomeList movies={movies} handleFavoritesClick={addFavoriteMovies} favoriteComponent={AddToFavorites} />} />
-          <Route path='/shows' element={<Shows />} />
           <Route path='/favorites' element={<Favorites favorites={favorites} handleFavoritesClick={removeFavoriteMovies} favoriteComponent={RemoveFavorites} />} />
         </Routes>
         

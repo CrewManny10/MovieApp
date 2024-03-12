@@ -11,6 +11,7 @@ const Home = (props) => {
   const FavoriteComponent = props.favoriteComponent;
   const [openModal, setOpenModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState(null);
+  const numberOfPosters = 50;
 
 
   const handlePosterClick = (movie) => {
@@ -21,15 +22,17 @@ const Home = (props) => {
 
   const handleCloseModal = () => {
     setOpenModal(false);
-  }
+  };
 
-  // Adding new class to the parent div (image-container) give the ability to add a zoom effect
-  // New overlay div that shows zooming effect when the user hover over the poster
-  // The handleFavoriteClick function is from props and add to (onClick)
+
+  const filterPage = props.movies.filter(movie => movie.Poster !== 'N/A' && movie.Title !== 'N/A');
+  
+  const posterToRender = Math.min(numberOfPosters, filterPage.length);
+
   return (
     
     <React.Fragment>
-      {props.movies.map((movie, index) => (
+      {filterPage.slice(0,posterToRender).map((movie, index) => (
         <div key={index} className='image-container d-flex justify-content-start m-3'>
           <img 
           src={movie.Poster} 

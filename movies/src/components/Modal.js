@@ -29,8 +29,9 @@ import './Modal.css';
                   quasi sunt officia expedita beatae cupiditate, maiores
                   repudiandae, nostrum, reiciendis facere nemo!
                 </p>
-                <p className="date text-muted">{movie.Year}</p>
-                <p className="rating text-muted" >{movie.rating}</p>
+                <p className="type text-muted">Type: {movie.Type}</p>
+                <p className="date text-muted">Released: {movie.Year}</p>
+                <p className="rating text-muted">{movie.rating}</p>
             </div>
         </div>
     
